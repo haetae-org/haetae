@@ -37,4 +37,4 @@ Refer to [haetae.dev](https://haetae.dev)
 
 [MIT License](license). Copyright © 2021, GIL B. Chan <github.com/jjangga0214> <bnbcmindnpass@gmail.com>
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fjjangga0214%2Fhaetae.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fjjangga0214%2Fhaetae?ref=badge_large)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhaetae-org%2Fhaetae.svg?type=large&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhaetae-org%2Fhaetae?ref=badge_large&issueType=license)
