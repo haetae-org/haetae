@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router'
 
 export default {
-  github: 'https://github.com/jjangga0214/haetae',
+  github: 'https://github.com/haetae-org/haetae',
   project: {
-    link: 'https://github.com/jjangga0214/haetae',
+    link: 'https://github.com/haetae-org/haetae',
   },
   // TODO: dynamic branch
   docsRepositoryBase:
-    'https://github.com/jjangga0214/haetae/blob/main/packages/docs',
+    'https://github.com/haetae-org/haetae/blob/main/packages/docs',
   useNextSeoProps() {
     const { asPath } = useRouter()
     if (asPath !== '/') {
@@ -89,8 +89,12 @@ export default {
   footer: {
     text: (
       <span>
-        MIT {new Date().getFullYear()} © jjangga0214
-        <a href="https://github.com/jjangga0214/haetae" target="_blank">
+        MIT {new Date().getFullYear()} © jjangga0214 &nbsp;
+        <a
+          href="https://github.com/haetae-org/haetae"
+          target="_blank"
+          rel="noreferrer"
+        >
           Haetae
         </a>
         .

@@ -137,7 +137,7 @@ export async function run(): Promise<void> {
         const info = await getInfo()
         if (argv.j) {
           ui.json.success(
-            'You can paste this information when creating an issue from https://github.com/jjangga0214/haetae/issues',
+            'You can paste this information when creating an issue from https://github.com/haetae-org/haetae/issues',
             info,
           )
         } else {
@@ -145,7 +145,7 @@ export async function run(): Promise<void> {
             `${chalk.dim(
               'Your runtime information is copied to the clipboard without color code. Paste it when creating an issue.\n',
             )}${chalk.bold.blue('➜ ')}${chalk.underline.bold(
-              'https://github.com/jjangga0214/haetae/issues',
+              'https://github.com/haetae-org/haetae/issues',
             )}\n`,
           )
           const message = ui.processInfo(info)

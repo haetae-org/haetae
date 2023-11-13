@@ -63,12 +63,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/jjangga0214/haetae.git"
+    "url": "https://github.com/haetae-org/haetae.git"
   },
   "bugs": {
-    "url": "https://github.com/jjangga0214/haetae/issues"
+    "url": "https://github.com/haetae-org/haetae/issues"
   },
-  "homepage": "https://github.com/jjangga0214/haetae/packages/git",
+  "homepage": "https://github.com/haetae-org/haetae/packages/git",
   "author": {
     "name": "Gil B. Chan",
     "email": "bnbcmindnpass@gmail.com",
