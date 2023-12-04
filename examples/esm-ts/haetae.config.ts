@@ -2,8 +2,14 @@ import { configure } from 'haetae'
 
 export default configure({
   commands: {
-    foo: {
+    helloworld: {
       run: () => ({ hello: 'world' }),
+    },
+    hi: {
+      env: {
+        foo: 'bar',
+      },
+      run: () => ({ hi: 'there' }),
     },
   },
 })
