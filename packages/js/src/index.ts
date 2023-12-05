@@ -164,28 +164,42 @@ export async function dependsOn({
   webpackConfig,
   skipNodeModules,
   rootDir = core.getConfigDirname(),
-  additionalGraph,
+  additionalGraph, // MUST be a graph of absolute paths
   glob = true,
 }: DependsOnOptions): Promise<boolean> {
   // eslint-disable-next-line no-param-reassign
   additionalGraph =
     additionalGraph || (await utils.graph({ edges: [], rootDir }))
-  const jsGraph = await graph({
-    entrypoint: dependent,
-    rootDir,
-    tsConfig,
-    webpackConfig,
-    skipNodeModules,
-  })
-  const mergedGraph = utils.mergeGraphs([jsGraph, additionalGraph])
 
-  return utils.dependsOn({
-    dependent,
-    dependencies,
-    graph: mergedGraph,
-    rootDir,
-    glob,
-  })
+  const dependents = []
+  if (glob) {
+    dependents.push(...(await utils.glob([dependent], { rootDir })))
+  } else {
+    dependents.push(dependent)
+  }
+
+  for (const d of dependents) {
+    const jsGraph = await graph({
+      entrypoint: d,
+      rootDir,
+      tsConfig,
+      webpackConfig,
+      skipNodeModules,
+    })
+    const mergedGraph = utils.mergeGraphs([jsGraph, additionalGraph])
+
+    const res = await utils.dependsOn({
+      dependent: d,
+      dependencies,
+      graph: mergedGraph,
+      rootDir,
+      glob,
+    })
+    if (res) {
+      return true
+    }
+  }
+  return false
 }
 
 export interface DependOnOptions {
@@ -201,11 +215,28 @@ export interface DependOnOptions {
 
 export async function dependOn({
   dependents,
+  dependencies,
+  rootDir = core.getConfigDirname(),
+  glob = true,
   ...options
 }: DependOnOptions): Promise<string[]> {
+  /* eslint-disable no-param-reassign */
+  if (glob) {
+    dependents = await utils.glob(dependents, {
+      rootDir,
+    })
+    dependencies = await utils.glob(dependencies, {
+      rootDir,
+    })
+  }
+  /* eslint-enable no-param-reassign */
+
   return filterAsync(dependents, (dependent) =>
     dependsOn({
       dependent,
+      dependencies,
+      rootDir,
+      glob: false,
       ...options,
     }),
   )

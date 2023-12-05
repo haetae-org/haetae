@@ -34,8 +34,6 @@ export async function graph({
   const depsGraph: DepsGraph = {}
 
   for (let { dependents, dependencies } of edges) {
-    dependents = dependents.map((dep) => upath.resolve(rootDir, dep))
-    dependencies = dependencies.map((dep) => upath.resolve(rootDir, dep))
     if (glob) {
       dependents = await _glob(dependents, {
         rootDir,
@@ -43,6 +41,9 @@ export async function graph({
       dependencies = await _glob(dependencies, {
         rootDir,
       })
+    } else {
+      dependents = dependents.map((dep) => upath.resolve(rootDir, dep))
+      dependencies = dependencies.map((dep) => upath.resolve(rootDir, dep))
     }
 
     for (const dependent of dependents) {
@@ -82,7 +83,7 @@ export interface DependsOnOptions {
 export async function dependsOn({
   dependent,
   dependencies,
-  graph,
+  graph, // MUST be a graph of absolute paths
   rootDir = core.getConfigDirname(),
   glob = true,
 }: DependsOnOptions): Promise<boolean> {
@@ -92,10 +93,19 @@ export async function dependsOn({
   dependencies = [...dependencies].map((dep) => upath.resolve(rootDir, dep))
   /* eslint-enable no-param-reassign */
 
-  const checkedDeps = new Set<string>() // To avoid infinite loop by circular dependencies.
-  // `depsQueue` stores dependencies of dependencies.. and so on.
-  // Until either the function finds the matching dependency or the loop ends.
-  const depsQueue = [dependent, ...(graph[dependent] || [])]
+  const depsQueue = []
+  if (glob) {
+    depsQueue.push(...multimatch(Object.keys(graph), [dependent]))
+  } else {
+    depsQueue.push(dependent)
+  }
+
+  /*
+   * To avoid infinite loop by circular dependencies,
+   * `depsQueue` stores dependencies of dependencies.. and so on,
+   * until either the loop ends or the function finds the matching dependency.
+   */
+  const checkedDeps = new Set<string>()
   for (const dependency of depsQueue) {
     if (!checkedDeps.has(dependency)) {
       checkedDeps.add(dependency)

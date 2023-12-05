@@ -217,10 +217,10 @@ Refer to [globby v13 docs](https://github.com/sindresorhus/globby/tree/v13.1.4) 
 
 A preconfigured Tagged Template Literal of [`execa`](https://github.com/sindresorhus/execa)
 
-The only differences from the original `execa` is these.
+The only differences from the original `execa` are these.
 
-1. [`stdio`](https://github.com/sindresorhus/execa#stdio) is preconfigured as `'inherit'`.
-1. [`cwd`](https://github.com/sindresorhus/execa#cwd-1) is preconfigured as [`core.getConfigDirname(){:ts}`](./core#getconfigdirname). If it's not available, `process.cwd()` is used instead.
+1. [`stdio`](https://github.com/sindresorhus/execa#stdio) is preconfigured as `'inherit'{:ts}`.
+1. [`cwd`](https://github.com/sindresorhus/execa#cwd-1) is preconfigured as [`core.getConfigDirname(){:ts}`](./core#getconfigdirname). If it's not available, `process.cwd(){:ts}` is used instead.
 
 #### Usage
 
@@ -544,12 +544,13 @@ There're [`dependOn`](#dependon) (plural) and [`dependsOn`](#dependson) (singula
 
 **Options**
 
-- `dependent{:ts}` : A target to check if it is a dependent of at least one of `dependencies{:ts}`, directly or transitively.
+- `dependent{:ts}` : A target to check if it is a dependent of at least one of `dependencies`, directly or transitively.
 - `dependencies{:ts}` : Candidates that may be a dependency of Dependents, directly or transitively.
-- `graph{:ts}` : A dependency graph. Return value of [`graph`](#graph) is proper.
+- `graph{:ts}` : A dependency graph. **Must be composed of absolute paths.** A return value of [`graph`](#graph) is proper.
 - `rootDir?{:ts}` : A directory to join with when `dependent` or `dependencies` is given as a relative path.
 <small>(default: [`core.getConfigDirname(){:ts}`](./core#getconfigdirname))</small>
-- `glob?{:ts}` : Whether to enable glob pattern.
+- `glob?{:ts}` : Whether to enable glob pattern for `dependents` and `dependencies`.
+If enabled, it's only checked against `graph`, not a real file system.
 <small>(default: `true{:ts}`)</small>
 
 #### Basic Usage
@@ -632,10 +633,11 @@ There're [`dependOn`](#dependon) (plural) and [`dependsOn`](#dependson) (singula
 
 - `dependents{:ts}` : Targets to filter by whether it's a dependent of at least one of `dependencies`, directly or transitively.
 - `dependencies{:ts}` : Candidates that may be a dependency of dependent, directly or transitively.
-- `graph{:ts}` : A dependency graph. Return value of [`graph`](#graph) is proper.
+- `graph{:ts}` : A dependency graph. **Must be composed of absolute paths.** A return value of [`graph`](#graph) is proper.
 - `rootDir?{:ts}` : A directory to join with when `dependents`, or `dependencies` are given as relative paths.
 <small>(default: [`core.getConfigDirname(){:ts}`](./core#getconfigdirname))</small>
-- `glob?{:ts}` : Whether to enable glob pattern.
+- `glob?{:ts}` : Whether to enable glob pattern for `dependents` and `dependencies`.
+If enabled, it's only checked against `graph`, not a real file system.
 <small>(default: `true{:ts}`)</small>
 
 #### Usage

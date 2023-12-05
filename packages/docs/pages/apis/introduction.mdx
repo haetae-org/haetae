@@ -8,7 +8,7 @@ export const PathPrinciples = () => (<Chip label='Path Principles' href='#path-p
 
 # Introduction
 
-"Haetae" represents its packages, `haetae{:ts}` and `@haetae/*{:ts}`.
+**Haetae** represents its packages, `haetae{:ts}` and `@haetae/*{:ts}`.
 
 ## Internal `dependencies` graph
 
@@ -44,6 +44,13 @@ interface Rec {
 ```
 
 `@haetae/common{:ts}` exports these, and they can be used across multiple packages.
+
+### Glob Pattern
+
+For glob pattern, Haetae internally uses [`multimatch`](https://www.npmjs.com/package/multimatch) and [`globby`](https://www.npmjs.com/package/globby),
+both of which have exactly identical glob pattern specifications, as their creator is the same person ([sindresorhus](https://github.com/sindresorhus)).
+
+If you have a question on supported glob pattern spec, check out one of them.
 
 ### Memoization
 

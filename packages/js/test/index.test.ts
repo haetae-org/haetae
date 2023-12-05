@@ -41,7 +41,7 @@ describe('graph', () => {
     })
   })
   // TODO: uncomment this test once `path mapping` is resolved by PR: https://github.com/dependents/node-dependency-tree/pull/138
-  // eslint-disable-next-line jest/no-commented-out-tests
+
   test('against test file', async () => {
     const result = await graph({
       entrypoint: 'packages/bar/test/unit/index.test.ts',
@@ -71,7 +71,7 @@ describe('graph', () => {
 
 describe('dependsOn', () => {
   // TODO: uncomment this test once `path mapping` is resolved by PR: https://github.com/dependents/node-dependency-tree/pull/138
-  // eslint-disable-next-line jest/no-commented-out-tests
+
   test('through typescript path mapping', async () => {
     await expect(
       dependsOn({
@@ -113,7 +113,6 @@ describe('dependsOn', () => {
       }),
     ).resolves.toBe(false)
 
-    // TODO: uncomment these expectation once `path mapping` is resolved by PR: https://github.com/dependents/node-dependency-tree/pull/138
     await expect(
       dependsOn({
         rootDir,
@@ -121,6 +120,7 @@ describe('dependsOn', () => {
         dependencies: ['packages/foo/src/hello.ts'],
       }),
     ).resolves.toBe(true)
+
     await expect(
       dependsOn({
         rootDir,
@@ -167,7 +167,7 @@ describe('dependsOn', () => {
     ).resolves.toBe(true)
   })
 
-  test('with additional dependencies', async () => {
+  test('with synthetic additional dependencies when glob is false', async () => {
     const additionalGraph = await utils.graph({
       rootDir,
       edges: [
@@ -188,41 +188,191 @@ describe('dependsOn', () => {
     })
 
     const dependencies = ['f', 'b']
+    const options = {
+      dependencies,
+      rootDir,
+      additionalGraph,
+      glob: false,
+    }
 
     await expect(
       dependsOn({
         dependent: 'a',
-        dependencies,
-        rootDir,
-        additionalGraph,
+        ...options,
       }),
     ).resolves.toBe(true)
 
     await expect(
       dependsOn({
         dependent: 'c',
-        dependencies,
-        rootDir,
-        additionalGraph,
+        ...options,
       }),
     ).resolves.toBe(true)
 
     await expect(
       dependsOn({
         dependent: 'e',
-        dependencies,
-        rootDir,
-        additionalGraph,
+        ...options,
       }),
     ).resolves.toBe(false)
 
     await expect(
       dependsOn({
-        rootDir,
         dependent: 'f',
-        dependencies,
-        additionalGraph,
+        ...options,
       }),
     ).resolves.toBe(true)
+  })
+
+  test('with existing additional dependencies when glob is true', async () => {
+    const additionalGraph = await utils.graph({
+      rootDir,
+      edges: [
+        {
+          dependents: ['packages/*/src/i*.ts'],
+          dependencies: ['packages/*/additional-dependency-dummy.txt'],
+        },
+      ],
+    })
+
+    const options = {
+      rootDir,
+      additionalGraph,
+      glob: true,
+    }
+
+    await expect(
+      dependsOn({
+        dependent: 'packages/foo/src/index.ts',
+        dependencies: ['packages/foo/src/hello.ts'],
+        ...options,
+      }),
+    ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'packages/foo/src/index.ts',
+        dependencies: ['packages/foo/bar/index.ts'],
+        ...options,
+      }),
+    ).resolves.toBe(false)
+
+    await expect(
+      dependsOn({
+        dependent: 'packages/foo/src/index.ts',
+        dependencies: ['path/to/non-existent.ts'],
+        ...options,
+      }),
+    ).resolves.toBe(false)
+
+    await expect(
+      dependsOn({
+        dependent: 'path/to/non-existent.ts',
+        dependencies: ['packages/foo/src/index.ts'],
+        ...options,
+      }),
+    ).resolves.toBe(false)
+
+    await expect(
+      dependsOn({
+        dependent: 'packages/*/src/i*.ts',
+        dependencies: ['packages/*/additional-dependency-dummy.txt'],
+        ...options,
+      }),
+    ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'packages/**/*.ts',
+        dependencies: ['packages/**/*.txt'],
+        ...options,
+      }),
+    ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'packages/foo/src/index.ts',
+        dependencies: ['packages/*/additional-dependency-dummy.txt'],
+        ...options,
+      }),
+    ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'packages/bar/src/index.ts',
+        dependencies: ['packages/*/additional-dependency-dummy.txt'],
+        ...options,
+      }),
+    ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'packages/bar/src/inonexisting.ts',
+        dependencies: ['packages/*/additional-dependency-dummy.txt'],
+        ...options,
+      }),
+    ).resolves.toBe(false)
+
+    await expect(
+      dependsOn({
+        dependent: 'packages/*/src/i*.ts',
+        dependencies: ['packages/foo/additional-dependency-dummy.txt'],
+        ...options,
+      }),
+    ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'packages/*/src/i*.ts',
+        dependencies: ['packages/bar/additional-dependency-dummy.txt'],
+        ...options,
+      }),
+    ).resolves.toBe(true)
+    await expect(
+      dependsOn({
+        dependent: 'packages/foo/src/index.ts',
+        dependencies: ['packages/foo/additional-dependency-dummy.txt'],
+        ...options,
+      }),
+    ).resolves.toBe(true)
+    await expect(
+      dependsOn({
+        dependent: 'packages/foo/src/index.ts',
+        dependencies: ['packages/bar/additional-dependency-dummy.txt'],
+        ...options,
+      }),
+    ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'packages/bar/src/index.ts',
+        dependencies: ['packages/foo/additional-dependency-dummy.txt'],
+        ...options,
+      }),
+    ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'packages/bar/src/index.ts',
+        dependencies: ['packages/bar/additional-dependency-dummy.txt'],
+        ...options,
+      }),
+    ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'packages/bar/src/index.ts',
+        dependencies: ['packages/*/additional-dependency-dummy.txt'],
+        ...options,
+      }),
+    ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'packages/*/src/*.ts',
+        dependencies: ['path/to/non-existent.ts'],
+        ...options,
+      }),
+    ).resolves.toBe(false)
   })
 })

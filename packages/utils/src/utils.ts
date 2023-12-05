@@ -11,12 +11,10 @@ export interface GlobOptions extends Omit<GlobbyOptions, 'cwd'> {
 
 export async function glob(
   patterns: readonly string[],
-  options: GlobOptions = {},
+  { rootDir = core.getConfigDirname(), ...options }: GlobOptions = {},
 ): Promise<string[]> {
-  const rootDir = toAbsolutePath({
-    path: options.rootDir || '.',
-    rootDir: core.getConfigDirname,
-  })
+  // eslint-disable-next-line no-param-reassign
+  rootDir = toAbsolutePath({ path: rootDir, rootDir: core.getConfigDirname })
   // Why `walkUpCountMax` is needed? REF: https://github.com/sindresorhus/globby/issues/168
   const walkUpCountMax = { value: 0 }
   // eslint-disable-next-line no-param-reassign

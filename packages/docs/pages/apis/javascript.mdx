@@ -413,8 +413,10 @@ by walking up parent directories recursively.)</small>.
 <small>(default: [`core.getConfigDirname(){:ts}`](./core#getconfigdirname))</small>
 - `additionalGraph?{:ts}` : A graph to manually specify explicit dependency relationships.
 This is purely additional, not an override or replacement of the source code dependency graph.
+**Must be composed of absolute paths.**
+A return value of [`graph`](./utils#graph) is proper.
 <small>(default: <TokenLinkCode inline tokens={{'graph' : './utils#graph'}}>`await graph({ edges: [], rootDir }){:ts}`</TokenLinkCode>)</small>
-- `glob?{:ts}` : Whether to enable glob pattern.
+- `glob?{:ts}` : Whether to enable glob pattern for `dependents` and `dependencies`.
 <small>(default: `true{:ts}`)</small>
 
 #### Basic Usage
@@ -467,8 +469,8 @@ interface DependOnOptions {
 ### `dependOn`
 
 A function to check if some of the given modules depend on one of the other modules, transitively or directly.<br/>
-It filters `options.dependencies{:ts}`.
-the result only contains files that depend on at least one of `options.dependencies{:ts}`.
+It filters `options.dependents{:ts}`.
+The result only contains files that depend on at least one of `options.dependencies{:ts}`.
 
 <Callout>
 **Multiple Formats Support**<br/>
@@ -504,8 +506,10 @@ by walking up parent directories recursively.)</small>.
 <small>(default: [`core.getConfigDirname(){:ts}`](./core#getconfigdirname))</small>
 - `additionalGraph?{:ts}` : A graph to manually specify explicit dependency relationships.
 This is purely additional, not an override or replacement of the source code dependency graph.
+**Must be composed of absolute paths.**
+A return value of [`graph`](./utils#graph) is proper.
 <small>(default: <TokenLinkCode inline tokens={{'graph' : './utils#graph'}}>`await graph({ edges: [], rootDir }){:ts}`</TokenLinkCode>)</small>
-- `glob?{:ts}` : Whether to enable glob pattern.
+- `glob?{:ts}` : Whether to enable glob pattern for `dependents` and `dependencies`.
 <small>(default: `true{:ts}`)</small>
 
 #### Usage

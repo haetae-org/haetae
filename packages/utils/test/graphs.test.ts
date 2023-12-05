@@ -213,75 +213,215 @@ describe('dependsOn', () => {
     ],
     glob: false,
   })
+
+  const options = (async () => ({
+    graph: await depsGraph,
+    rootDir: '/<rootDir>',
+  }))()
+
   test('direct dependency', async () => {
     await expect(
       dependsOn({
         dependent: 'a',
         dependencies: ['c'],
-        graph: await depsGraph,
-        rootDir: '/<rootDir>',
+        ...(await options),
         glob: false,
       }),
     ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'a',
+        dependencies: ['c'],
+        ...(await options),
+        glob: true,
+      }),
+    ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: '*',
+        dependencies: ['*'],
+        ...(await options),
+        glob: true,
+      }),
+    ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'a',
+        dependencies: ['*'],
+        ...(await options),
+        glob: true,
+      }),
+    ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'c',
+        dependencies: ['*'],
+        ...(await options),
+        glob: true,
+      }),
+    ).resolves.toBe(true)
   })
+
   test('transitive dependency', async () => {
     await expect(
       dependsOn({
         dependent: 'a',
         dependencies: ['x', 'f'],
-        graph: await depsGraph,
-        rootDir: '/<rootDir>',
+        ...(await options),
         glob: false,
       }),
     ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'a',
+        dependencies: ['x', 'f'],
+        ...(await options),
+        glob: true,
+      }),
+    ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: '{a,}',
+        dependencies: ['{x,f}'],
+        ...(await options),
+        glob: true,
+      }),
+    ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: '{a,}',
+        dependencies: ['x', 'f'],
+        ...(await options),
+        glob: true,
+      }),
+    ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'a',
+        dependencies: ['{x,f}'],
+        ...(await options),
+        glob: true,
+      }),
+    ).resolves.toBe(true)
   })
+
   test('non-existent dependency', async () => {
     await expect(
       dependsOn({
         dependent: 'a',
         dependencies: ['non-existent'],
-        graph: await depsGraph,
-        rootDir: '/<rootDir>',
+        ...(await options),
+        glob: false,
+      }),
+    ).resolves.toBe(false)
+
+    await expect(
+      dependsOn({
+        dependent: 'a',
+        dependencies: ['non-existent'],
+        ...(await options),
+        glob: true,
+      }),
+    ).resolves.toBe(false)
+
+    await expect(
+      dependsOn({
+        dependent: '*',
+        dependencies: ['non-existent'],
+        ...(await options),
+        glob: true,
       }),
     ).resolves.toBe(false)
   })
+
   test('non-existent dependent', async () => {
     await expect(
       dependsOn({
         dependent: 'non-existent',
         dependencies: ['c'],
-        graph: await depsGraph,
-        rootDir: '/<rootDir>',
+        ...(await options),
         glob: false,
       }),
     ).resolves.toBe(false)
+    await expect(
+      dependsOn({
+        dependent: 'non-existent',
+        dependencies: ['c'],
+        ...(await options),
+        glob: true,
+      }),
+    ).resolves.toBe(false)
+
+    await expect(
+      dependsOn({
+        dependent: 'non-existent',
+        dependencies: ['*'],
+        ...(await options),
+        glob: true,
+      }),
+    ).resolves.toBe(false)
   })
+
   test('circular dependency', async () => {
     await expect(
       dependsOn({
         dependent: 'g',
         dependencies: ['h'],
-        graph: await depsGraph,
-        rootDir: '/<rootDir>',
+        ...(await options),
         glob: false,
       }),
     ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'g',
+        dependencies: ['h'],
+        ...(await options),
+        glob: true,
+      }),
+    ).resolves.toBe(true)
+
     await expect(
       dependsOn({
         dependent: 'i',
         dependencies: ['k'],
-        graph: await depsGraph,
-        rootDir: '/<rootDir>',
+        ...(await options),
         glob: false,
       }),
     ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'i',
+        dependencies: ['k'],
+        ...(await options),
+        glob: true,
+      }),
+    ).resolves.toBe(true)
+
     await expect(
       dependsOn({
         dependent: 'k',
         dependencies: ['j'],
-        graph: await depsGraph,
-        rootDir: '/<rootDir>',
+        ...(await options),
         glob: false,
+      }),
+    ).resolves.toBe(true)
+
+    await expect(
+      dependsOn({
+        dependent: 'k',
+        dependencies: ['j'],
+        ...(await options),
+        glob: true,
       }),
     ).resolves.toBe(true)
   })
