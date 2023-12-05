@@ -1,5 +1,11 @@
 # @haetae/utils
 
+## 0.0.20
+
+### Patch Changes
+
+- [`499565c`](https://github.com/haetae-org/haetae/commit/499565cca6ed0791f4e4f2bf470e855555cf4bb1) Thanks [@jjangga0214](https://github.com/jjangga0214)! - Refactored `graph` for a bit of performance.
+
 ## 0.0.19
 
 ### Patch Changes
