@@ -195,6 +195,18 @@ importers:
         specifier: ^4.8.2
         version: 4.8.2
 
+  examples/my-calculator:
+    devDependencies:
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
+      haetae:
+        specifier: workspace:*
+        version: link:../../packages/haetae
+      jest:
+        specifier: ^29.5.0
+        version: 29.5.0(@types/node@18.6.0)(ts-node@10.9.1)
+
   packages/cli:
     dependencies:
       '@haetae/common':
@@ -6560,7 +6572,7 @@ packages:
     resolution: {integrity: sha512-Kijeg9Dag6CKtIDA7O21zNTACqD5MD/8HfIV8pdD94vFyFuer52SigdC3IQMhab3vACxXMiFk+yMHNdbqtyTGA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
-      '@babel/code-frame': 7.22.5
+      '@babel/code-frame': 7.22.13
       '@jest/types': 29.5.0
       '@types/stack-utils': 2.0.1
       chalk: 4.1.2

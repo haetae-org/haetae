@@ -1,0 +1,17 @@
+{
+  "name": "my-calculator",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "haetae": "haetae",
+    "ht": "haetae",
+    "jest": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
+    "test": "haetae test"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "haetae": "workspace:*",
+    "jest": "^29.5.0"
+  }
+}

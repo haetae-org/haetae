@@ -9,7 +9,7 @@ export default configure({
       env: {
         foo: 'bar',
       },
-      run: () => ({ hi: 'there' }),
+      run: () => console.log('hi!'),
     },
   },
 })
