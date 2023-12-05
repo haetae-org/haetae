@@ -22,6 +22,7 @@
     "lint": "eslint --ext .js,.cjs,.mjs,.jsx,.ts,.tsx,.md .",
     "lint:md": "markdownlint .",
     "build": "tsc --build tsconfig.build.json",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage -c ../../jest.config.js ./packages/cli/",
     "prepublishOnly": "tsc --build tsconfig.build.json"
   },
   "peerDependencies": {
@@ -52,7 +53,8 @@
     "@types/lodash.isobject": "^3.0.7",
     "@types/semver": "^7.5.0",
     "@types/signale": "^1.4.4",
-    "@types/yargs": "^17.0.24"
+    "@types/yargs": "^17.0.24",
+    "execa": "^8.0.1"
   },
   "keywords": [
     "haetae",

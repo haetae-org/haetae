@@ -4,7 +4,14 @@ An example of using Haetae in CJS Typescript project.
 
 A dedicated Typescript config *`tsconfig.haetae.json`* is used.
 
+To execute, build the package [`heatae`](../../packages/haetae) first.
+
 ```bash
-# Check if it works
+pnpm --filter "haetae" build
+```
+
+Then check if it works.
+
+```bash
 pnpm haetae helloworld
 ```

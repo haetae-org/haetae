@@ -1,5 +1,5 @@
 # `haetae`
 
-The main user-friendly package recommended to most of users of Haetae.
+The main recommended user-friendly package for most of the users of Haetae.
 
 Refer to the official documentation website.

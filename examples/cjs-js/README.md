@@ -2,7 +2,14 @@
 
 An example of using Haetae in CJS Javascript project.
 
+To execute, build the package [`heatae`](../../packages/haetae) first.
+
 ```bash
-# Check if it works
+pnpm --filter "haetae" build
+```
+
+Then check if it works.
+
+```bash
 pnpm haetae helloworld
 ```
