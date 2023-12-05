@@ -1,6 +1,6 @@
 {
   "name": "@haetae/git",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Git integration for Haetae",
   "license": "MIT",
   "private": false,

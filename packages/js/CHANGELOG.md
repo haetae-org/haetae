@@ -1,5 +1,15 @@
 # @haetae/javascript
 
+## 0.0.19
+
+### Patch Changes
+
+- [`499565c`](https://github.com/haetae-org/haetae/commit/499565cca6ed0791f4e4f2bf470e855555cf4bb1) Thanks [@jjangga0214](https://github.com/jjangga0214)! - \
+  - Support a glob pattern for `dependent` of `dependsOn()`.
+  - Support glob patterns for `dependents` of `dependOn()`.
+- Updated dependencies [[`499565c`](https://github.com/haetae-org/haetae/commit/499565cca6ed0791f4e4f2bf470e855555cf4bb1)]:
+  - @haetae/utils@0.0.20
+
 ## 0.0.18
 
 ### Patch Changes
