@@ -1,6 +1,4 @@
-# Haetae
-
-Incremental tasks - test, lint, build, and more - for any environment.
+![Incremental tasks with Haetae](./assets/header.png)
 
 [![license](https://img.shields.io/badge/license-MIT-ff4081.svg?style=flat-square&labelColor=black)](./LICENSE)
 [![test](https://img.shields.io/badge/test-jest-7c4dff.svg?style=flat-square&labelColor=black)](./jest.config.js)
@@ -32,6 +30,13 @@ However, more language supports are possibly to be added in the future.
 ## Getting Started
 
 Refer to [haetae.dev](https://haetae.dev)
+
+## What does the name [**Haetae**] mean?
+
+Haetae(해태)/Haechi(해치) is a legendary creature in East Asian mythology.\
+It is said to be able to distinguish between good and evil, and to punish those who commit crimes.\
+The logo image in this README is also a official mascot of Seoul, South Korea.\
+It's also for a gatekeeper of Gwanghwamun(광화문). [(View)](https://www.google.com/maps/@37.5756468,126.977208,3a,75y,327.06h,88.41t/data=!3m6!1e1!3m4!1sx6zMoKeg62FVPz9QYSWNEQ!2e0!7i13312!8i6656?entry=ttu)
 
 ## License
 

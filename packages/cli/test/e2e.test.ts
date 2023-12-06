@@ -20,30 +20,35 @@ describe('test', () => {
     })`pnpm haetae helloworld --json`
     expect(stdout).toContain('Command helloworld is successfully executed.')
   })
+
   test('cjs-ts-1', async () => {
     const { stdout } = await $({
       cwd: `${examples}/cjs-ts-1`,
-    })`pnpm haetae helloworld  --json`
+    })`pnpm haetae helloworld --json`
     expect(stdout).toContain('Command helloworld is successfully executed.')
   })
+
   test('cjs-ts-2', async () => {
     const { stdout } = await $({
       cwd: `${examples}/cjs-ts-2`,
-    })`pnpm haetae helloworld  --json`
+    })`pnpm haetae helloworld --json`
     expect(stdout).toContain('Command helloworld is successfully executed.')
   })
+
   test('esm-js', async () => {
     const { stdout } = await $({
       cwd: `${examples}/esm-js`,
     })`pnpm haetae helloworld --json`
     expect(stdout).toContain('Command helloworld is successfully executed.')
   })
+
   test('esm-ts', async () => {
     const { stdout } = await $({
       cwd: `${examples}/esm-ts`,
-    })`pnpm haetae helloworld  --json`
+    })`pnpm haetae helloworld --json`
     expect(stdout).toContain('Command helloworld is successfully executed.')
   })
+
   test('my-calculator', async () => {
     const { stdout } = await $({
       cwd: `${examples}/my-calculator`,
