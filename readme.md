@@ -35,8 +35,9 @@ Refer to [haetae.dev](https://haetae.dev)
 
 Haetae(해태)/Haechi(해치) is a legendary creature in East Asian mythology.\
 It is said to be able to distinguish between good and evil, and to punish those who commit crimes.\
-The logo image in this README is also a official mascot of Seoul, South Korea.\
 It's also for a gatekeeper of Gwanghwamun(광화문). [(View)](https://www.google.com/maps/@37.5756468,126.977208,3a,75y,327.06h,88.41t/data=!3m6!1e1!3m4!1sx6zMoKeg62FVPz9QYSWNEQ!2e0!7i13312!8i6656?entry=ttu)
+
+The logo image on the top is the official mascot of Seoul, South Korea.
 
 ## License
 
