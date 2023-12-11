@@ -10,9 +10,7 @@ const examples = upath.resolve(dirname(import.meta), '../../../examples')
 
 describe('test', () => {
   // eslint-disable-next-line jest/no-hooks
-  beforeAll(async () => {
-    await $`pnpm --filter "haetae" build`
-  })
+  beforeAll(async () => $`pnpm --filter haetae build`)
 
   test('cjs-js', async () => {
     const { stdout } = await $({
