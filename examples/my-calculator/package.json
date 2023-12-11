@@ -4,14 +4,13 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "haetae": "haetae",
-    "ht": "haetae",
     "jest": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
-    "test": "haetae test"
+    "myTest": "haetae myTest"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
     "haetae": "workspace:*",
-    "jest": "^29.5.0"
+    "jest": "^29.5.0",
+    "semver": "^7.5.4"
   }
 }

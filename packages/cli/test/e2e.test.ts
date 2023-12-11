@@ -50,7 +50,7 @@ describe('test', () => {
   test('my-calculator', async () => {
     const { stdout } = await $({
       cwd: `${examples}/my-calculator`,
-    })`pnpm haetae test --json`
+    })`pnpm haetae myTest --json`
     expect(stdout).toContain('Command test is successfully executed.')
   })
 })
