@@ -64,6 +64,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build
+        run: pnpm --filter haetae build
+
       - name: Test and measure coverage
         run: pnpm turbo test -- --ci
 
