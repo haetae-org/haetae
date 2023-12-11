@@ -10,7 +10,11 @@ const examples = upath.resolve(dirname(import.meta), '../../../examples')
 
 describe('test', () => {
   // eslint-disable-next-line jest/no-hooks
-  beforeAll(async () => $`pnpm --filter haetae build`)
+  beforeAll(async () => {
+    await $`pnpm --filter haetae build`
+    // Re-installation is needed to install haetae built from the previous step into /examples/*
+    await $`pnpm install --frozen-lockfile`
+  })
 
   test('cjs-js', async () => {
     const { stdout } = await $({

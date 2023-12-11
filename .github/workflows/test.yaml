@@ -58,10 +58,6 @@ jobs:
       - name: Build
         run: pnpm --filter "haetae" build
 
-      - name: Install dependencies
-        # This is needed to install haetae built from the previous step into /examples/*
-        run: pnpm install --frozen-lockfile
-
       - name: Test and measure coverage
         run: pnpm turbo test -- --ci
 
