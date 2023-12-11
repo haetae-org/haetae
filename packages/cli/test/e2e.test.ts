@@ -51,6 +51,6 @@ describe('test', () => {
     const { stdout } = await $({
       cwd: `${examples}/my-calculator`,
     })`pnpm haetae myTest --json`
-    expect(stdout).toContain('Command test is successfully executed.')
+    expect(stdout).toContain('Command myTest is successfully executed.')
   })
 })
