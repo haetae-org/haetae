@@ -23,17 +23,8 @@ on:
       - docs/urls.json
 
 jobs:
-  # [original source of job "check-if-to-skip"](https://github.com/srz-zumix/ci-skip/blob/master/.github/workflows/main.yml#L15)
-  skip:
-    runs-on: ubuntu-latest
-    # skip commits with [ci skip] or [skip ci], except on an action triggered by push of a version tag
-    if: "!( contains(github.event.head_commit.message, '[ci skip]') || contains(github.event.head_commit.message, '[skip ci]') )"
-    steps:
-      - name: Check [ci skip] or [skip ci]
-        run: exit 0
 
   test:
-    needs: skip
     timeout-minutes: 10
     runs-on: ubuntu-latest
 
